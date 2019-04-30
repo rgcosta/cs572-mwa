@@ -73,4 +73,29 @@ console.log("End of the exercise!!");
 
 //===================================================
 //Exercise 2: isWeekend()
+function isWeekend() {
+    const todayDate = new Date();
+    const day = todayDate.getDate();
+}
 
+
+//==================================================
+//Exercise 3: applyCoupon()
+//applyCoupon(item)(10).price === 180
+const item = {
+    "name": "Avocado",
+    "type": "Fruit",
+    "category": "Food",
+    "price": 200
+};
+
+function applyCoupon(item) {
+    let currentPrice = item.price;
+    return function (discount) {
+        item.price = currentPrice - currentPrice*discount/100;
+        return item;
+    }
+}
+
+console.log("applyCoupon(item)(10).price === 180");
+console.log(applyCoupon(item)(10).price === 180);
