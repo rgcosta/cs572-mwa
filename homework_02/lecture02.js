@@ -3,7 +3,6 @@ Array.prototype.even = async function () {
     try {
         let result = await getEven(arr);
         console.log(result.toString());
-        // return result;
     } catch (e) {
         console.log(e);
     }
@@ -20,41 +19,36 @@ Array.prototype.odd = async function () {
 };
 
 function getEven(arr) {
-    return new Promise((resolve, reject) => {
-        let even = [];
-        let i = 0;
-        for (const value of arr) {
-            if (value % 2 === 0) {
-                even[i] = value;
-                i++;
-            }
+    let even = [];
+    let i = 0;
+    for (const value of arr) {
+        if (value % 2 === 0) {
+            even[i] = value;
+            i++;
         }
+    }
 
-        if (even.length >= 1)
-            resolve(even);
-        else
-            reject("There is no even number.");
-    })
+    if (even.length >= 1)
+        return even;
+    else
+        return "There is no even number.";
 }
 
 function getOdd(arr) {
-    return new Promise((resolve, reject) => {
-        let odd = [];
-        let i = 0;
-        for (const value of arr) {
-            if (value % 2 !== 0) {
-                odd[i] = value;
-                i++;
-            }
+    let odd = [];
+    let i = 0;
+    for (const value of arr) {
+        if (value % 2 !== 0) {
+            odd[i] = value;
+            i++;
         }
+    }
 
-        if (odd.length >= 1)
-            resolve(odd);
-        else
-            reject("There is no odd number.");
-    })
+    if (odd.length >= 1)
+        return odd;
+    else
+        return "There is no odd number.";
 }
-
 
 console.log('start');
 [1,2,3,4,5,6,7,8].even();
