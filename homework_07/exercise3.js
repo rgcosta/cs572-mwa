@@ -1,8 +1,14 @@
+require('dotenv').config();
 let express = require('express');
 const {ObjectId} = require("bson/lib/bson/objectid");
 let app = express();
+
+const dbHost = process.env.DB_HOST;
+const dbUser = process.env.DB_USER;
+const dbPass = process.env.DB_PASS;
+
 const MongoClient = require('mongodb').MongoClient;
-const client = new MongoClient('mongodb+srv://admin:root@cluster0-0o4t5.mongodb.net/test?retryWrites=true', {useNewUrlParser: true});
+const client = new MongoClient(`mongodb+srv://${dbUser}:${dbPass}@${dbHost}`, {useNewUrlParser: true});
 
 let db = null;
 
