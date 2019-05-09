@@ -30,16 +30,39 @@ client.connect(function (err) {
     // });
 
     //Aggreation 3:
+    // zips.aggregate([
+    //     { $group: {_id: {state: '$state', city: '$city'}, zips: {$sum:1} }},
+    //     {$match: {zips: {$gt:1}}},
+    //     {$sort: {'_id.state':1, '_id.city':1}},
+    //     {$project: {_id:0, State_City:'$_id', zips:1}}
+    // ]).toArray(function (err, docs) {
+    //     console.dir(docs);
+    // })
+
+    //Aggreagation 4:
     zips.aggregate([
-        {$group: {_id: {}}}
+        {
+            $group: {
+                _id: {state: '$state', city: '$city'},
+                total: {$sum: '$pop'} }
+                },
+        {
+            $sort: {'_id.state':-1, 'total': 1}
+        },
+        {
+            $group: {
+                _id: '$_id.state',
+                'city': {$first: '$_id.city'}, 'total': {$first: '$total'}
+            }
+        },
+        {
+            $sort: {
+                '_id':1
+            }
+        }
 
-
-        // {$sort: {'city':1, 'state':1}},
-        // {$group: {_id: '$city', 'zips': {$push: '$_id'}, 'QtyZips': {$sum:1}}},
-        // {$match: {'QtyZips': {$gt:1}}},
-        // {$project: {_id:0, 'city':'$_id', 'QtyZips':1, 'zips':1}}
     ]).toArray(function (err, docs) {
         console.dir(docs);
-    })
+    });
 
 });
