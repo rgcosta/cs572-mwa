@@ -80,6 +80,19 @@ app.post('/lectures', function (req, res) {
     })
 });
 
+app.put('/lectures/:course', function (req, res) {
+    const course = req.params.course;
+    const lecture = req.body;
+    req.collection.update({'course': course}, lecture, function (err, docs) {
+        if (err)
+            throw err;
+
+        console.dir(docs);
+        res.status(200).json({'docs_updates': docs.n});
+        res.end();
+    })
+});
+
 app.post('/search/:q', function (req, res) {
     const q = req.params.q;
     req.collection.find({course: { $regex: q}}).toArray(function (err, docs) {
@@ -90,5 +103,7 @@ app.post('/search/:q', function (req, res) {
         res.end();
     })
 });
+
+
 
 app.listen(3007, () => console.log('localhost:3007'));
